@@ -32,3 +32,18 @@ jobs:
       
     - name: Terraform Plan
       run: terraform plan
+  
+    - name: Manual Apply
+      if: steps.manual_approve.outputs['contains-apply'] == 'true'
+      run: terraform apply -auto-approve
+
+    - name: Manual Approve Destroy
+      if: steps.check_workflow.outputs.workflow_status == 'success'
+      run: |
+        echo "To destroy the resources, comment '/destroy'"
+        echo "Waiting for approval..."
+        sleep 5m
+    
+    - name: Manual Destroy
+      if: steps.manual_approve.outputs['contains-destroy'] == 'true'
+      run: terraform destroy -auto-approve
