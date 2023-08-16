@@ -29,6 +29,7 @@ resource "aws_instance" "web" {
               #!/bin/bash
               sudo apt-get update -y
               sudo apt-get install -y docker.io
+              sudo usermod -aG docker ubuntu
               EOF
 }
 
