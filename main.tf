@@ -3,11 +3,6 @@
 
 resource "random_pet" "sg" {}
 
-resource "aws_key_pair" "ssh_key" {
-  key_name   = "ssh_key"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
-
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -29,7 +24,7 @@ resource "aws_instance" "web" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
   
-  key_name      = aws_key_pair.ssh_key.key_name
+  key_name      = "mmc-key"
 
   user_data = <<-EOF
               #!/bin/bash
