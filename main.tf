@@ -30,7 +30,7 @@ resource "aws_instance" "web" {
               sudo apt-get update -y
               sudo apt-get install -y docker.io
               sudo usermod -aG docker ubuntu
-              docker run -d -p 8080:8080 --name golang nginx
+              docker run -d -p 8080:8080 --name golang matheusmc/golang-example:1.0
               EOF
 }
 
